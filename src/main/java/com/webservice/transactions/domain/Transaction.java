@@ -1,5 +1,7 @@
 package com.webservice.transactions.domain;
 
+import java.util.Objects;
+
 public class Transaction {
     private final Long id;
     private final Double amount;
@@ -27,6 +29,19 @@ public class Transaction {
 
     public Long getParentId() {
         return parentId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Transaction that = (Transaction) o;
+        return Objects.equals(id, that.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 
 }
