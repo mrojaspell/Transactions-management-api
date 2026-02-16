@@ -47,8 +47,8 @@ public class InMemoryTransactionRepository implements TransactionRepository {
         return ids != null ? ids : java.util.Collections.emptyList();
     }
 
-    public List<Transaction> findChildren(Long parentId){
+    public List<Long> findChildrenIds(Long parentId){
         List<Long> childIds = transactionsByParentId.get(parentId);
-        return childIds != null ? childIds.stream().map(transactionsById::get).toList() : java.util.Collections.emptyList();
+        return childIds != null ? childIds : java.util.Collections.emptyList();
     }
 }
