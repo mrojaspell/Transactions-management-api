@@ -1,6 +1,4 @@
-package com.webservice.transactions.application;
-
-import com.webservice.transactions.domain.Transaction;
+package com.webservice.transactions.domain;
 
 import java.util.List;
 import java.util.Optional;

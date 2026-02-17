@@ -9,6 +9,7 @@ import com.webservice.transactions.application.exception.ParentTransactionNotFou
 import com.webservice.transactions.application.exception.TransactionAlreadyExistsException;
 import com.webservice.transactions.application.exception.TransactionNotFoundException;
 import com.webservice.transactions.domain.Transaction;
+import com.webservice.transactions.domain.TransactionRepository;
 
 @Service
 public class DefaultTransactionService implements TransactionService {

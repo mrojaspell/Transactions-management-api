@@ -2,8 +2,9 @@ package com.webservice.transactions.infrastructure.persistence;
 
 import org.springframework.stereotype.Repository;
 
-import com.webservice.transactions.application.TransactionRepository;
 import com.webservice.transactions.domain.Transaction;
+import com.webservice.transactions.domain.TransactionRepository;
+
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
