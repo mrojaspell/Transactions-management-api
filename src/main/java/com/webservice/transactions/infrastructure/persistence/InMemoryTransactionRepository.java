@@ -1,4 +1,4 @@
-package com.webservice.transactions.persistence;
+package com.webservice.transactions.infrastructure.persistence;
 
 import org.springframework.stereotype.Repository;
 

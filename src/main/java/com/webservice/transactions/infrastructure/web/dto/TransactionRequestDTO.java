@@ -1,4 +1,4 @@
-package com.webservice.transactions.web.dto;
+package com.webservice.transactions.infrastructure.web.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

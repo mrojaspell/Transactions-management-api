@@ -1,4 +1,4 @@
-package com.webservice.transactions.web.exception;
+package com.webservice.transactions.infrastructure.web.exception;
 
 import java.util.HashMap;
 import java.util.Map;

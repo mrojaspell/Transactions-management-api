@@ -1,10 +1,10 @@
-package com.webservice.transactions.web;
+package com.webservice.transactions.infrastructure.web;
 
 import com.webservice.transactions.application.TransactionService;
 import com.webservice.transactions.application.exception.ParentTransactionNotFoundException;
 import com.webservice.transactions.application.exception.TransactionAlreadyExistsException;
 import com.webservice.transactions.application.exception.TransactionNotFoundException;
-import com.webservice.transactions.web.exception.GlobalExceptionHandler;
+import com.webservice.transactions.infrastructure.web.exception.GlobalExceptionHandler;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;

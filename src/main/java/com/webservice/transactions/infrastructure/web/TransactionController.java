@@ -1,16 +1,16 @@
-package com.webservice.transactions.web;
+package com.webservice.transactions.infrastructure.web;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.webservice.transactions.application.TransactionService;
-import com.webservice.transactions.web.dto.TransactionRequestDTO;
+import com.webservice.transactions.infrastructure.web.dto.TransactionRequestDTO;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
-import com.webservice.transactions.web.dto.SumResponseDTO;
+import com.webservice.transactions.infrastructure.web.dto.SumResponseDTO;
 
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.GetMapping;

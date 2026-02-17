@@ -1,4 +1,4 @@
-package com.webservice.transactions.web.dto;
+package com.webservice.transactions.infrastructure.web.dto;
 
 public class SumResponseDTO {
     
