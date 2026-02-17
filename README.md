@@ -29,6 +29,13 @@ To run the application run:
 Server runs at:
 `http://localhost:8080`
 
+## Running with Docker
+To build the image, run from the project root:
+´docker build -t transactions-api .´
+To run the container:
+´docker run -p 8080:8080 transactions-api´
+
+
 ## Endpoints
 * `PUT /transaction/{id}`
 `Content-Type: application/json`
