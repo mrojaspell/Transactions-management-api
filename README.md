@@ -31,9 +31,9 @@ Server runs at:
 
 ## Running with Docker
 To build the image, run from the project root:
-´docker build -t transactions-api .´
+`docker build -t transactions-api .`
 To run the container:
-´docker run -p 8080:8080 transactions-api´
+`docker run -p 8080:8080 transactions-api`
 
 
 ## Endpoints
