@@ -5,6 +5,9 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.webservice.transactions.application.exception.ParentTransactionNotFoundException;
+import com.webservice.transactions.application.exception.TransactionAlreadyExistsException;
+import com.webservice.transactions.application.exception.TransactionNotFoundException;
 import com.webservice.transactions.domain.Transaction;
 
 @Service
@@ -23,11 +26,15 @@ public class DefaultTransactionService implements TransactionService {
         }
 
         if(transactionRepository.findById(id).isPresent()){
-            throw new IllegalArgumentException("Transaction with ID "+ id + " already exists");
+            throw new TransactionAlreadyExistsException(id);
         }
 
         if(parentId != null && transactionRepository.findById(parentId).isEmpty()){
-            throw new IllegalArgumentException("Parent transaction with ID "+ parentId + " does not exist");
+            throw new ParentTransactionNotFoundException(parentId);
+        }
+
+        if(parentId != null && parentId.equals(id)){
+            throw new IllegalArgumentException("Transaction cannot be its own parent");
         }
         
         Transaction transaction = new Transaction(id, amount, type, parentId);
@@ -44,8 +51,12 @@ public class DefaultTransactionService implements TransactionService {
     }
 
     public Double getSum(Long transactionId){ 
+        if (transactionId == null) {
+            throw new IllegalArgumentException("Transaction ID cannot be null");
+        }
+
         if (transactionRepository.findById(transactionId).isEmpty()) {
-            throw new IllegalArgumentException("Transaction not found");
+            throw new TransactionNotFoundException(transactionId);
         }
 
         Deque<Long> stack = new java.util.ArrayDeque<>();
@@ -55,7 +66,7 @@ public class DefaultTransactionService implements TransactionService {
 
         while(!stack.isEmpty()) {
             Long currentId = stack.pop();
-            Transaction transaction = transactionRepository.findById(currentId).orElseThrow(() -> new IllegalArgumentException("Transaction not found"));
+            Transaction transaction = transactionRepository.findById(currentId).orElseThrow(() -> new TransactionNotFoundException(currentId));
 
             sum += transaction.getAmount();
 

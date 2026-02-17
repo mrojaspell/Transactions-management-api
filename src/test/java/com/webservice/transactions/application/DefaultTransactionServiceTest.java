@@ -12,6 +12,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.webservice.transactions.application.exception.ParentTransactionNotFoundException;
+import com.webservice.transactions.application.exception.TransactionAlreadyExistsException;
+import com.webservice.transactions.application.exception.TransactionNotFoundException;
 import com.webservice.transactions.domain.Transaction;
 
 import java.util.Collections;
@@ -52,8 +55,8 @@ class DefaultTransactionServiceTest {
         when(transactionRepository.findById(1L))
                 .thenReturn(Optional.of(new Transaction(1L, 100.0, "type1", null)));
 
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
+        TransactionAlreadyExistsException ex = assertThrows(
+                TransactionAlreadyExistsException.class,
                 () -> transactionService.createTransaction(1L, 200.0, "type2", null)
         );
 
@@ -107,13 +110,22 @@ class DefaultTransactionServiceTest {
         when(transactionRepository.findById(2L)).thenReturn(Optional.empty());
         when(transactionRepository.findById(99L)).thenReturn(Optional.empty());
 
-        IllegalArgumentException ex = assertThrows(
-                IllegalArgumentException.class,
+        ParentTransactionNotFoundException ex = assertThrows(
+                ParentTransactionNotFoundException.class,
                 () -> transactionService.createTransaction(2L, 200.0, "type2", 99L)
         );
 
         assertTrue(ex.getMessage().contains("Parent"));
         verify(transactionRepository, never()).save(any());
+    }
+
+    @Test
+    void createTransaction_parentNotFound_throwsParentTransactionNotFoundException() {
+        when(transactionRepository.findById(2L)).thenReturn(Optional.empty());
+        when(transactionRepository.findById(99L)).thenReturn(Optional.empty());
+
+        assertThrows(ParentTransactionNotFoundException.class,
+                () -> transactionService.createTransaction(2L, 100.0, "type", 99L));
     }
 
     // ── getTransactionIdsByType ────────────────────────────────────
@@ -213,7 +225,7 @@ class DefaultTransactionServiceTest {
         when(transactionRepository.findById(2L))
                 .thenReturn(Optional.empty());
 
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(TransactionNotFoundException.class,
                 () -> transactionService.getSum(1L));
     }
 
@@ -221,7 +233,7 @@ class DefaultTransactionServiceTest {
     void getSum_nonExistentTransaction_throwsException() {
         when(transactionRepository.findById(99L)).thenReturn(Optional.empty());
 
-        assertThrows(IllegalArgumentException.class,
+        assertThrows(TransactionNotFoundException.class,
                 () -> transactionService.getSum(99L));
     }
 }
